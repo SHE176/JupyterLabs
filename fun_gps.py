@@ -1,12 +1,12 @@
 
-'''
+
 import os
 
 if 'LOGNAME' in os.environ.keys():
     import micropip
     await micropip.install('ipywidgets')
     await micropip.install('ipyleaflet')     
-'''
+
 
 import gps as gps
 import json
