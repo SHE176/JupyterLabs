@@ -66,10 +66,10 @@ REF_OFFSET = (None, None)   # Offset XY de la linea de BERTH para 3xS
 # <<< GEODATA >>>
 # =============================================================================
 
-NAME        = ''
-ZERO        = (None, None)      # Coordenadas Lat / Lon del punto ZERO
-INCLINATION = None              # Inclinación del mapa de la terminal en grados
-R_TER       = R_AVG             # Radio de la terminal según su Lat
+TERMINAL    = None
+ZERO        = None          # Coordenadas Lat / Lon del punto ZERO
+INCLINATION = None          # Inclinación del mapa de la terminal en grados
+R_TER       = R_AVG         # Radio de la terminal según su Lat
 
 # =============================================================================
 # <<< REFERENCE >>>
@@ -88,30 +88,32 @@ ZOOM = None
 
 ### Carga datos para hacer trnsformaciones de coordenadas
 def load_geodata(name):
+
+    global ZERO, INCLINATION, R_TER, TERMINAL
     
-    path = 'D:\Proyectos\[ Proyectos PY ]\Trabajo\_PYTHONPATH\geodata.json'
+    path = 'geodata.json'
     
     with open(path) as file:
         dic = json.load(file)
     
-    z = dic[name]['ZERO']
-    i = dic[name]['INCLINATION']
-    r = dic[name]['R_TER']
-    
-    return z, i, r
+    ZERO = dic[name]['ZERO']
+    INCLINATION = dic[name]['INCLINATION']
+    R_TER = dic[name]['R_TER']
+    TERMINAL = name
 
 # Carga datos de encuadre del mapa
 def load_reference(name):
+
+    global MED, ZOOM, TERMINAL
     
-    path = 'D:\Proyectos\[ Proyectos PY ]\Trabajo\_PYTHONPATH\geodata.json'
+    path = 'geodata.json'
     
     with open(path) as file:
         dic = json.load(file)
     
-    m = dic[name]['MED']
-    z = dic[name]['ZOOM']
-    
-    return m, z
+    MED = dic[name]['MED']
+    ZOOM = dic[name]['ZOOM']
+    TERMINAL = name
 
 # =============================================================================
 # <<< FUNCIONES GPS >>>
